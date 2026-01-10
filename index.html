@@ -140,6 +140,10 @@
                         <label class="block text-sky-700 font-bold mb-2 required-label">🎨 โทนสีที่ใช้ (Color Tone)</label>
                         <input type="text" name="โทนสีที่ใช้" id="color_tone" placeholder="เช่น #ff86b0 , #da3371 , #f18daf" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
                         <p class="text-[10px] text-red-500 mt-1 ml-1 leading-tight">* สามารถระบุโค้ดสีได้มากกว่า 1 สี เพื่อให้งานออกมาตรงใจที่สุดครับ</p>
+                        <!-- ปุ่ม ColorHunt -->
+                        <a href="https://colorhunt.co/" target="_blank" class="inline-flex items-center mt-2 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold rounded-lg transition-colors border border-gray-200">
+                             🎨 เลือกโทนสีที่ ColorHunt
+                        </a>
                     </div>
                     <div class="flex-1">
                         <label class="block text-sky-700 font-medium mb-2">🔒 รหัสผ่านปลดล็อก (Passcode)</label>
@@ -251,7 +255,7 @@
     </div>
 
     <script>
-        // Updated SCRIPT_URL to the latest version provided by user
+        // Updated SCRIPT_URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgCrPS_pFx7m9kKH6i-BSoNAiXex7pXJVdpCLd_gsjeq644k-hFbvzNvjcopdNtmZe/exec';
         let uploadedImagesBase64 = [];
         const MAX_FILES = 5;
