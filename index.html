@@ -100,10 +100,15 @@
 <body class="min-h-screen py-10 px-4">
     <div class="max-w-2xl mx-auto">
         <!-- Logo & Header -->
-        <div class="text-center mb-10">
-            <img src="https://i.ibb.co/k268SxR2/WHALE3.png" alt="Whale Logo" class="w-32 h-32 mx-auto mb-4 drop-shadow-lg object-contain">
-            <h1 class="text-3xl font-bold text-sky-600 mb-2">Whale Web Card</h1>
-            <p class="text-sky-400 text-sm">สร้างความทรงจำดีๆ ผ่านเว็บการ์ดสุดน่ารัก (Create special memories)</p>
+        <div class="text-center mb-12">
+            <!-- ขยายขนาดโลโก้เป็น w-80 h-80 และเพิ่มเงาสีฟ้า Pop ออกมา -->
+            <img src="https://i.ibb.co/FLX32bKg/3.png" alt="Whale Logo" class="w-80 h-80 mx-auto mb-6 drop-shadow-[0_0_15px_rgba(14,165,233,0.4)] object-contain">
+            <!-- ปรับขนาดหัวข้อเป็น text-4xl -->
+            <h1 class="text-4xl font-bold text-sky-600 mb-3">Whale Web Card</h1>
+            <p class="text-sky-400 text-base leading-loose">
+                สร้างความทรงจำดีๆ ผ่านเว็บการ์ดสุดน่ารัก<br>
+                <span class="text-sm opacity-80">(Create special memories)</span>
+            </p>
         </div>
 
         <!-- Form Container -->
@@ -232,7 +237,7 @@
         <div id="uploadingModal" class="fixed inset-0 bg-sky-900/40 backdrop-blur-sm hidden items-center justify-center p-4 z-[60]">
             <div class="bg-white rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl animate-pop">
                 <div class="whale-swim mb-6">
-                    <img src="https://i.ibb.co/k268SxR2/WHALE3.png" alt="Whale Loading" class="w-24 h-24 mx-auto object-contain">
+                    <img src="https://i.ibb.co/FLX32bKg/3.png" alt="Whale Loading" class="w-32 h-32 mx-auto object-contain drop-shadow-[0_0_10px_rgba(14,165,233,0.3)]">
                 </div>
                 <h3 class="text-2xl font-bold text-sky-600 mb-2">กำลังเดินทางไปหาเซิร์ฟเวอร์...</h3>
                 <p class="text-gray-500 text-sm mb-4">น้องวาฬกำลังส่งข้อมูลและอัปโหลดรูปภาพ อย่างตั้งใจ โปรดรอสักครู่ครับ</p>
@@ -255,7 +260,6 @@
     </div>
 
     <script>
-        // Updated SCRIPT_URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgCrPS_pFx7m9kKH6i-BSoNAiXex7pXJVdpCLd_gsjeq644k-hFbvzNvjcopdNtmZe/exec';
         let uploadedImagesBase64 = [];
         const MAX_FILES = 5;
@@ -396,7 +400,6 @@
             const formData = new FormData(document.getElementById('orderForm'));
             const data = Object.fromEntries(formData.entries());
             
-            // ส่งข้อมูลรูปภาพในชื่อฟิลด์ภาษาไทย "รูปภาพ"
             data['รูปภาพ'] = JSON.stringify(uploadedImagesBase64);
 
             try {
