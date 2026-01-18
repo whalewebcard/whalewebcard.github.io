@@ -36,6 +36,8 @@
             background: #fff;
             position: relative;
             transition: all 0.3s ease;
+            width: 100%; /* ให้ขนาดปรับตาม Grid */
+            max-width: 120px; /* จำกัดขนาดสูงสุดไม่ให้ใหญ่เกินไปเหมือนตอน 5 ช่อง */
         }
         .image-preview-slot img {
             width: 100%;
@@ -101,13 +103,8 @@
     <div class="max-w-2xl mx-auto">
         <!-- Logo & Header -->
         <div class="text-center mb-8 flex flex-col items-center">
-            <!-- Increased Logo size to w-80 h-80 and refined shadow -->
             <img src="https://i.ibb.co/FLX32bKg/3.png" alt="Whale Logo" class="w-80 h-80 mb-0 drop-shadow-[0_20px_20px_rgba(125,211,252,0.4)] object-contain">
-            
-            <!-- Title with tight spacing to the larger logo -->
             <h1 class="text-4xl font-bold text-sky-600 -mt-6 mb-1">Whale Web Card</h1>
-            
-            <!-- Slogan with balanced spacing -->
             <p class="text-sky-400 text-base leading-snug">
                 สร้างความทรงจำดีๆ ผ่านเว็บการ์ดสุดน่ารัก<br>
                 <span class="text-sm opacity-80">(Create special memories)</span>
@@ -170,14 +167,13 @@
                 <!-- อัปโหลดรูปภาพ -->
                 <div>
                     <label class="block text-sky-700 font-bold mb-1">📸 อัปโหลดรูปภาพ (Upload Images)</label>
-                    <p class="text-[11px] text-red-500 mb-2 ml-1 leading-tight font-medium">* จำกัดจำนวนสูงสุด 5 รูปภาพ และขนาดไฟล์ต้องไม่เกิน 10 MB ต่อรูปภาพ (สามารถเลือกไม่ใส่ได้)</p>
+                    <p class="text-[11px] text-red-500 mb-2 ml-1 leading-tight font-medium">* จำกัดจำนวนสูงสุด 3 รูปภาพ และขนาดไฟล์ต้องไม่เกิน 10 MB ต่อรูปภาพ (สามารถเลือกไม่ใส่ได้)</p>
                     
-                    <div class="grid grid-cols-5 gap-2 mb-3" id="imagePreviewContainer">
+                    <!-- ปรับการจัดวาง Grid ให้ช่องมีขนาดคงที่ ไม่ขยายตามพื้นที่ที่เหลือ -->
+                    <div class="flex flex-wrap gap-2 mb-3" id="imagePreviewContainer">
                         <div class="image-preview-slot" id="slot-0"><span class="text-xs text-sky-200">1</span></div>
                         <div class="image-preview-slot" id="slot-1"><span class="text-xs text-sky-200">2</span></div>
                         <div class="image-preview-slot" id="slot-2"><span class="text-xs text-sky-200">3</span></div>
-                        <div class="image-preview-slot" id="slot-3"><span class="text-xs text-sky-200">4</span></div>
-                        <div class="image-preview-slot" id="slot-4"><span class="text-xs text-sky-200">5</span></div>
                     </div>
                     <input type="file" id="imageInput" accept="image/*" multiple class="block w-full text-sm text-sky-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
                 </div>
@@ -265,7 +261,7 @@
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxgCrPS_pFx7m9kKH6i-BSoNAiXex7pXJVdpCLd_gsjeq644k-hFbvzNvjcopdNtmZe/exec';
         let uploadedImagesBase64 = [];
-        const MAX_FILES = 5;
+        const MAX_FILES = 3; 
         const MAX_SIZE_MB = 10;
 
         document.getElementById('imageInput').addEventListener('change', function(e) {
@@ -293,16 +289,20 @@
         });
 
         function renderPreviews() {
-            for(let i=0; i<5; i++) {
+            for(let i=0; i<MAX_FILES; i++) {
                 const slot = document.getElementById(`slot-${i}`);
-                slot.innerHTML = `<span class="text-xs text-sky-200">${i+1}</span>`;
+                if (slot) {
+                    slot.innerHTML = `<span class="text-xs text-sky-200">${i+1}</span>`;
+                }
             }
             uploadedImagesBase64.forEach((base64, index) => {
                 const slot = document.getElementById(`slot-${index}`);
-                slot.innerHTML = `
-                    <img src="${base64}">
-                    <div class="delete-btn" onclick="removeImage(${index})">✕</div>
-                `;
+                if (slot) {
+                    slot.innerHTML = `
+                        <img src="${base64}">
+                        <div class="delete-btn" onclick="removeImage(${index})">✕</div>
+                    `;
+                }
             });
         }
 
@@ -424,6 +424,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 uploadingModal.classList.add('hidden');
+                uploadingModal.classList.remove('flex');
                 showWarning('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้งครับ');
                 resetBtn();
             }
